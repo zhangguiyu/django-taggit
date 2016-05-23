@@ -41,3 +41,7 @@ Tags will show up for you automatically in forms and the admin.
 For more info check out the `documentation <https://django-taggit.readthedocs.org/en/latest/>`_.  And for questions about usage or
 development you can contact the
 `mailinglist <http://groups.google.com/group/django-taggit>`_.
+
+This custom version uses 64-bit primary keys for TaggItems and object_id,
+to support tagging a class with more than 2 billion objects,
+which exceeds the limitation of the 32-bit default primary key.
