@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 
+from share.utils.bigdata import BigAutoField, BigForeignKey
 
 class Migration(migrations.Migration):
 
@@ -27,8 +28,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TaggedItem',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, help_text='', verbose_name='ID')),
-                ('object_id', models.IntegerField(help_text='', verbose_name='Object id', db_index=True)),
+                ('id', BigAutoField(auto_created=True, primary_key=True, serialize=False, help_text='', verbose_name='ID')),
+                ('object_id', models.BigIntegerField(help_text='', verbose_name='Object id', db_index=True)),
                 ('content_type', models.ForeignKey(related_name='taggit_taggeditem_tagged_items', verbose_name='Content type', to='contenttypes.ContentType', help_text='', on_delete=models.CASCADE)),
                 ('tag', models.ForeignKey(related_name='taggit_taggeditem_items', to='taggit.Tag', help_text='', on_delete=models.CASCADE)),
             ],

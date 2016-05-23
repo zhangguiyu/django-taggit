@@ -12,6 +12,9 @@ from django.utils.translation import ugettext
 
 from taggit.utils import _get_field
 
+from share.utils.bigdata import BigAutoField, BigForeignKey
+from share.utils.bigdata import BigAutoField_ForMigrations
+
 try:
     from unidecode import unidecode
 except ImportError:
@@ -137,7 +140,7 @@ class ItemBase(models.Model):
 
 
 class TaggedItemBase(ItemBase):
-    tag = models.ForeignKey(Tag, related_name="%(app_label)s_%(class)s_items", on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, related_name="%(app_label)s_%(class)s_items", on_delete=models.CASCADE)    # assume < 2b Tags
 
     class Meta:
         abstract = True
@@ -204,7 +207,8 @@ class CommonGenericTaggedItemBase(ItemBase):
 
 
 class GenericTaggedItemBase(CommonGenericTaggedItemBase):
-    object_id = models.IntegerField(verbose_name=_('Object id'), db_index=True)
+    #object_id = models.IntegerField(verbose_name=_('Object id'), db_index=True)
+    object_id = models.BigIntegerField(verbose_name=_('Object id'), db_index=True)
 
     class Meta:
         abstract = True
@@ -220,6 +224,7 @@ if VERSION >= (1, 8):
 
 
 class TaggedItem(GenericTaggedItemBase, TaggedItemBase):
+    id = BigAutoField(primary_key=True) 
     class Meta:
         verbose_name = _("Tagged Item")
         verbose_name_plural = _("Tagged Items")
