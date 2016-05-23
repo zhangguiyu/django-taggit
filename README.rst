@@ -45,3 +45,6 @@ development you can contact the
 This custom version uses 64-bit primary keys for TaggItems and object_id,
 to support tagging a class with more than 2 billion objects,
 which exceeds the limitation of the 32-bit default primary key.
+
+NOTE: the 64-bit modifications suppot django 1.7 or higher via the
+django migrations in /migrations; I have NOT touched the south_migrations/
